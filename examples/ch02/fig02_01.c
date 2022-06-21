@@ -24,11 +24,11 @@ int askUser( void )
 	puts("Enter the length");
 	scanf("%d", &length);
 
-	//Ask user for width
+	//Ask user for width 
 	puts("Enter the width");
 	scanf("%d", &width);
 
-	//Assign variables
+	//Assign variables 
 	area = length * width;
 	division = length / width;
 
