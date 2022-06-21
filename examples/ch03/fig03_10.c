@@ -1,6 +1,7 @@
 // Fig. 3.10: fig03_10.c
 // Analysis of examination results 
 #include <stdio.h>
+#include <stdbool.h>
 
 // function main begins program execution 
 int main( void )
@@ -9,14 +10,38 @@ int main( void )
    unsigned int passes = 0; // number of passes   
    unsigned int failures = 0; // number of failures 
    unsigned int student = 1; // student counter    
+   unsigned int scanfReturn = 1; //Field to hold scanf
+
    int result; // one exam result 
+   bool numberValid = false; //boolean flag
 
    // process 10 students using counter-controlled loop 
    while ( student <= 10 ) {
 
+      numberValid = false; //boolean flag
+
       // prompt user for input and obtain value from user 
       printf( "%s", "Enter result ( 1=pass,2=fail ): " );
-      scanf( "%d", &result );
+
+      //repeat until valid number
+      do
+      {
+          //Get scanf value to know if it was stored successfully
+          scanfReturn = scanf("%d", &result);
+          //Clear Buffer
+          while ((getchar()) != '\n');
+
+          if (scanfReturn != 1 || result < 1 || result > 2)
+          {
+              puts("Please enter a value between 1 and 2");
+          }
+          else //number is valid
+          {
+              numberValid = true;
+          }
+
+      } while (!numberValid);
+      
 
       // if result 1, increment passes 
       if ( result == 1 ) {     
