@@ -2,33 +2,47 @@
 // Passing arrays and individual array elements to functions.
 #include <stdio.h>
 #define SIZE 5
+#define ROWS 3
+#define COLUMNS 4
 
 // function prototypes
 void modifyArray(int b[], size_t size);
 void modifyElement(int e);               
+void printArray(const int b[], size_t rows);
+void fill2DArray(int b[][COLUMNS], size_t rows);
+void print2DArray(const int b[][COLUMNS], size_t rows);
 
 // function main begins program execution
 int main(void)
 {
    int a[SIZE] = { 0, 1, 2, 3, 4 }; // initialize array a
+   int b[ROWS][COLUMNS] = {0};
+
+   puts("Demonstrate 2D Arrays");
+   for (unsigned int i = 0; i < ROWS; ++i) {
+       for (unsigned int j = 0; j < COLUMNS; ++j) {
+           b[i][j] = i * j;
+       }
+   }
+
+   fill2DArray(b, ROWS);
+   print2DArray(b, ROWS);
 
    puts("Effects of passing entire array by reference:\n\nThe "
       "values of the original array are:");
 
    // output original array
-   for (size_t i = 0; i < SIZE; ++i) { 
-      printf("%3d", a[i]);
-   } 
+   printArray(a, SIZE);
 
    puts(""); // outputs a newline
 
    modifyArray(a, SIZE); // pass array a to modifyArray by reference                         
    puts("The values of the modified array are:");
 
+   printf("array = %p\n & a[0] = %p\n & a = %p\n", a, &a[0], &a);
+
    // output modified array
-   for (size_t i = 0; i < SIZE; ++i) {
-      printf("%3d", a[i]);
-   } 
+   printArray(a, SIZE);
 
    // output value of a[3]
    printf("\n\n\nEffects of passing array element "
@@ -57,7 +71,33 @@ void modifyElement(int e)
    // multiply parameter by 2                                  
    printf("Value in modifyElement is %d\n", e *= 2);            
 } 
-                          
+
+void printArray(const int b[], size_t rows)
+{
+    for (size_t i = 0; i < rows; ++i) {
+        printf("%3d", b[i]);
+    }
+    puts("");
+}
+                    
+void fill2DArray(int b[][COLUMNS], size_t rows)
+{
+    for (unsigned int i = 0; i < rows; ++i) {
+        for (unsigned int j = 0; j < COLUMNS; ++j) {
+            printf("Enter value for location [%d] [%d]\n", i, j);
+            scanf("%3d", &b[i][j]);
+        }
+    }
+}
+void print2DArray(const int b[][COLUMNS], size_t rows)
+{
+    for (unsigned int i = 0; i < rows; ++i) {
+        for (unsigned int j = 0; j < COLUMNS; ++j) {
+            printf("%3d", b[i][j]);
+        }
+        puts("");
+    }
+}
 
 
 
