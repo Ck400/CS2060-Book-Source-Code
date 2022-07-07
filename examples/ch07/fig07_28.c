@@ -3,47 +3,101 @@
 #include <stdio.h>
 
 // prototypes
-void function1(int a);
-void function2(int b);
-void function3(int c);
+double add(double first, double second);
+double subtract(double first, double second);
+double multiply(double first, double second);
+double divide(double first, double second);
 
 int main(void)
 {
    // initialize array of 3 pointers to functions that each take an
    // int argument and return void                              
-   void (*f[3])(int) = {function1, function2, function3};    
+   double (*calc[4])(double, double) = {add, subtract, multiply, divide};    
+   double v1 = 0;
+   double v2 = 0;
 
-   printf("%s", "Enter a number between 0 and 2, 3 to end: ");
+   puts("Enter value 1");
+   scanf("%lf", &v1);
+   while ((getchar()) != '\n') {}
+
+   puts("Enter value 2");
+   scanf("%lf", &v2);
+   while ((getchar()) != '\n') {}
+
+   printf("%s",
+       "Select and option\n"
+       "1.Add\n"
+       "2.Subtract\n"
+       "3.Multiply\n"
+       "4.Divide\n");
+
    size_t choice; // variable to hold user's choice
-   scanf("%u", &choice);
+   scanf("%llu", &choice);
 
    // process user's choice
-   while (choice >= 0 && choice < 3) {
+   while (choice < 1 || choice > 4 ) {
 
-      // invoke function at location choice in array f and pass
-      // choice as an argument                              
-      (*f[choice])(choice);                                
+      printf("%s",
+           "Select and option\n"
+           "1.Add\n"
+           "2.Subtract\n"
+           "3.Multiply\n"
+           "4.Divide\n");
 
-      printf("%s", "Enter a number between 0 and 2, 3 to end: ");
-      scanf("%u", &choice);
+      scanf("%llu", &choice);
    } 
 
+   double answer = (calc[choice - 1])(v1, v2);
+   printf("Answer is %f\n", answer);
    puts("Program execution completed.");
 } 
 
-void function1(int a)
+double add(double first, double second)
 {
-   printf("You entered %d so function1 was called\n\n", a);
+   //printf("You entered %d so function1 was called\n\n", a);
+    double answer;
+
+    answer = first + second;
+
+    return answer;
 }
 
-void function2(int b)
+double subtract(double first, double second)
 {
-   printf("You entered %d so function2 was called\n\n", b);
+   //printf("You entered %d so function2 was called\n\n", b);
+    double answer;
+
+    answer = first - second;
+
+    return answer;
 }
 
-void function3(int c)
+double multiply(double first, double second)
 {
-   printf("You entered %d so function3 was called\n\n", c);  
+   //printf("You entered %d so function3 was called\n\n", c);  
+    double answer;
+
+    answer = first * second;
+
+    return answer;
+}
+
+double divide(double first, double second)
+{
+    //printf("You entered %d so function4 was called\n\n", c);  
+    double answer;
+    
+    if (second != 0)
+    {
+        answer = first / second;
+    }
+    else
+    {
+        puts("ERROR Cannot divide by zero");
+        answer = 0;
+    }
+
+    return answer;
 }
 
 
